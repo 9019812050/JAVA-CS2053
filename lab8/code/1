@@ -1,0 +1,97 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class PlaylistManager {
+    public static void main(String[] args) {
+        LinkedList<String> playlist = new LinkedList<>();
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n=== Playlist Manager ===");
+            System.out.println("1. Add song at the beginning");
+            System.out.println("2. Add song at the end");
+            System.out.println("3. Remove first song");
+            System.out.println("4. Remove last song");
+            System.out.println("5. Replace song at index");
+            System.out.println("6. Display playlist");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter song name to add at the beginning: ");
+                    String firstSong = sc.nextLine();
+                    playlist.addFirst(firstSong);
+                    System.out.println("Song added at the beginning!");
+                    break;
+
+                case 2:
+                    System.out.print("Enter song name to add at the end: ");
+                    String lastSong = sc.nextLine();
+                    playlist.addLast(lastSong);
+                    System.out.println("Song added at the end!");
+                    break;
+
+                case 3:
+                    if (!playlist.isEmpty()) {
+                        System.out.println("Removed: " + playlist.removeFirst());
+                    } else {
+                        System.out.println("Playlist is empty!");
+                    }
+                    break;
+
+                case 4:
+                    if (!playlist.isEmpty()) {
+                        System.out.println("Removed: " + playlist.removeLast());
+                    } else {
+                        System.out.println("Playlist is empty!");
+                    }
+                    break;
+
+                case 5:
+                    if (playlist.isEmpty()) {
+                        System.out.println("Playlist is empty!");
+                        break;
+                    }
+                    System.out.print("Enter index to replace (0 - " + (playlist.size() - 1) + "): ");
+                    int index = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    if (index >= 0 && index < playlist.size()) {
+                        System.out.print("Enter new song name: ");
+                        String newSong = sc.nextLine();
+                        playlist.set(index, newSong);
+                        System.out.println("Song replaced successfully!");
+                    } else {
+                        System.out.println("Invalid index!");
+                    }
+                    break;
+
+                case 6:
+                    if (playlist.isEmpty()) {
+                        System.out.println("Playlist is empty!");
+                    } else {
+                        System.out.println("\nCurrent Playlist:");
+                        int i = 0;
+                        for (String song : playlist) {
+                            System.out.println(i + ". " + song);
+                            i++;
+                        }
+                    }
+                    break;
+
+                case 7:
+                    System.out.println("Exiting Playlist Manager... Goodbye!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+
+        } while (choice != 7);
+
+        sc.close();
+    }
+}
