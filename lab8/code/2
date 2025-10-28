@@ -1,1 +1,119 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentListManager {
+    public static void main(String[] args) {
+        ArrayList<String> students = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n=== Student List Manager ===");
+            System.out.println("1. Add student");
+            System.out.println("2. Insert student at a specific index");
+            System.out.println("3. Update a student's name");
+            System.out.println("4. Remove a student (by name or index)");
+            System.out.println("5. Display student list");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1: // Add student
+                    System.out.print("Enter student name to add: ");
+                    String name = sc.nextLine();
+                    students.add(name);
+                    System.out.println("Student added successfully!");
+                    break;
+
+                case 2: // Insert student at index
+                    System.out.print("Enter index to insert student at (0 - " + students.size() + "): ");
+                    int index = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    if (index >= 0 && index <= students.size()) {
+                        System.out.print("Enter student name: ");
+                        String studentName = sc.nextLine();
+                        students.add(index, studentName);
+                        System.out.println("Student inserted successfully!");
+                    } else {
+                        System.out.println("Invalid index!");
+                    }
+                    break;
+
+                case 3: // Update student's name
+                    System.out.print("Enter index of student to update (0 - " + (students.size() - 1) + "): ");
+                    int updateIndex = sc.nextInt();
+                    sc.nextLine();
+                    if (updateIndex >= 0 && updateIndex < students.size()) {
+                        System.out.print("Enter new student name: ");
+                        String newName = sc.nextLine();
+                        students.set(updateIndex, newName);
+                        System.out.println("Student updated successfully!");
+                    } else {
+                        System.out.println("Invalid index!");
+                    }
+                    break;
+
+                case 4: // Remove student
+                    System.out.println("1. Remove by name");
+                    System.out.println("2. Remove by index");
+                    System.out.print("Enter your choice: ");
+                    int removeChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    if (removeChoice == 1) {
+                        System.out.print("Enter student name to remove: ");
+                        String removeName = sc.nextLine();
+                        if (students.remove(removeName)) {
+                            System.out.println("Student removed successfully!");
+                        } else {
+                            System.out.println("Student not found!");
+                        }
+                    } else if (removeChoice == 2) {
+                        System.out.print("Enter index of student to remove (0 - " + (students.size() - 1) + "): ");
+                        int removeIndex = sc.nextInt();
+                        if (removeIndex >= 0 && removeIndex < students.size()) {
+                            System.out.println("Removed student: " + students.remove(removeIndex));
+                        } else {
+                            System.out.println("Invalid index!");
+                        }
+                    } else {
+                        System.out.println("Invalid choice!");
+                    }
+                    break;
+
+                case 5: 
+                    displayStudents(students);
+                    break;
+
+                case 6:
+                    System.out.println("Exiting Student List Manager... Goodbye!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+
+            if (choice != 6) {
+                displayStudents(students);
+            }
+
+        } while (choice != 6);
+
+        sc.close();
+    }
+
+  
+    public static void displayStudents(ArrayList<String> list) {
+        System.out.println("\nCurrent Student List:");
+        if (list.isEmpty()) {
+            System.out.println("No students in the list.");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(i + ". " + list.get(i));
+            }
+        }
+    }
+}
 
